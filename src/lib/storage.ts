@@ -4,14 +4,39 @@ import { NoteState } from "@raight/components/note/store";
 import { createThread, deleteThread } from "./actions";
 
 export class AppStorage {
-  private storage = window.localStorage;
+  private storage: Storage;
+
+  constructor() {
+    // shim storage for server side
+    this.storage =
+      typeof window === "undefined"
+        ? {
+            setItem() {},
+            getItem() {
+              return null;
+            },
+            removeItem() {},
+            key() {
+              return null;
+            },
+            get length() {
+              return 0;
+            },
+            clear() {},
+          }
+        : window.localStorage;
+  }
 
   getNoteById(id: string) {
-    const note = this.storage.getItem(id);
+    const note = this.storage.getItem(this.formatId("note", id));
     if (!note) {
       return null;
     }
-    return JSON.parse(note) as Note;
+    const parsedNote = JSON.parse(note) as Note;
+    parsedNote.id = id.replace("raight.note.", "");
+    parsedNote.createdAt = new Date(parsedNote.createdAt);
+    parsedNote.updatedAt = new Date(parsedNote.updatedAt);
+    return parsedNote;
   }
 
   getNotes() {
@@ -19,7 +44,7 @@ export class AppStorage {
     for (let i = 0; i < this.storage.length; i++) {
       const key = this.storage.key(i);
       if (key?.startsWith("raight.note.")) {
-        const note = this.getNoteById(key);
+        const note = this.getNoteById(key.replace("raight.note.", ""));
         if (note) {
           notes.push(note);
         }
@@ -31,8 +56,9 @@ export class AppStorage {
   async createNote(title: string) {
     const id = this.makeId("note");
     const thread = await createThread();
+    const pathCompliantId = id.replace("raight.note.", "");
     const note: Note = {
-      id,
+      id: pathCompliantId,
       events: [],
       page: { showDebugger: false, suggestions: [] },
       editor: { html: "", text: "", words: 0 },
@@ -44,7 +70,7 @@ export class AppStorage {
     this.storage.setItem(id, JSON.stringify(note));
     return {
       id,
-      path: id.replace("raight.note.", ""),
+      path: pathCompliantId,
     };
   }
 
@@ -54,7 +80,7 @@ export class AppStorage {
       return;
     }
     note = { ...existing, ...note };
-    this.storage.setItem(id, JSON.stringify(note));
+    this.storage.setItem(existing.id, JSON.stringify(note));
   }
 
   async deleteNote(id: string) {
@@ -63,14 +89,19 @@ export class AppStorage {
       return;
     }
     await deleteThread(note.threadId);
-    this.storage.removeItem(id);
+    const formattedId = this.formatId("note", id);
+    this.storage.removeItem(formattedId);
+  }
+
+  private formatId(entityType: "note", id: string) {
+    return `raight.${entityType}.${id}`;
   }
 
   private makeId(entityType: "note") {
     const segments = Array.from({ length: 4 }, () =>
       Math.random().toString(36).substring(2, 6)
     );
-    return `raight.${entityType}.${segments.join("-")}`;
+    return this.formatId(entityType, segments.join("-"));
   }
 }
 

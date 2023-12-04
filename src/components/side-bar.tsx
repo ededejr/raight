@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Separator } from "@raight/ui/separator";
 import { SideBarContent } from "./side-bar-content";
 import { Logo } from "./logo";
 import { SideBarContainer } from "./side-bar-container";
@@ -23,8 +22,6 @@ export function SideBar() {
               <div className="grid space-y-2">
                 <NewNoteButton />
               </div>
-              <Separator className="my-4" />
-              <div className="grid items-start py-2">raight</div>
             </div>
           </nav>
         </div>

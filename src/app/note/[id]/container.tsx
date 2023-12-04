@@ -3,16 +3,19 @@
 import { useAppContext } from "@raight/components/context";
 import { NoteEditor } from "@raight/components/note/editor";
 import { NoteHeaderButtons } from "@raight/components/note/header-buttons";
+import { useRouter } from "next/navigation";
 
 interface Props {
   id: string;
 }
 
 export function NotePageContainer({ id }: Props) {
+  const router = useRouter();
   const { storage } = useAppContext();
   const note = storage.getNoteById(id);
 
   if (!note) {
+    router.replace("/404");
     return null;
   }
 

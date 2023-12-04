@@ -58,7 +58,7 @@ export function NewNoteButton() {
     if (!data.title) return;
     setOpen(false);
     const { path } = await storage.createNote(data.title);
-    router.push(`/app/note/${path}`);
+    router.push(`/note/${path}`);
     router.refresh();
   }
 

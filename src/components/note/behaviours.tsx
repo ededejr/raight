@@ -41,6 +41,7 @@ function useStorageSync(id: string) {
 }
 
 function useAssistantReporting(id: string) {
+  const { storage } = useAppContext();
   const logger = useRef(Logger.create("useNoteReporting")).current;
   useEffect(() => {
     const unsubscribe = useNoteStore.subscribe(
@@ -49,11 +50,15 @@ function useAssistantReporting(id: string) {
         if (!text) return;
         if (useNoteStore.getState().assistant.run) return;
 
+        const note = storage.getNoteById(id);
+        if (!note) return;
+
         try {
           const res = await fetch("/api/assistant/editor", {
             method: "POST",
             body: JSON.stringify({
               id,
+              threadId: note.threadId,
               content: text,
             }),
           });
@@ -70,25 +75,30 @@ function useAssistantReporting(id: string) {
         } catch (error: any) {
           logger.error(`failed reporting to assistant. ${error}`);
         }
-      }, 5000)
+      }, 2000)
     );
 
     return () => unsubscribe();
-  }, [id, logger]);
+  }, [id, logger, storage]);
 }
 
 function useAssistantRunWatcher(id: string) {
+  const { storage } = useAppContext();
   const intervalId = useRef<NodeJS.Timeout | undefined>(undefined);
   const logger = useRef(Logger.create("useNoteReporting")).current;
   const fetchRun = useCallback(async () => {
     const runId = useNoteStore.getState().assistant.run?.id;
     if (!runId) return;
+    const note = storage.getNoteById(id);
+    if (!note) return;
+
     try {
       const res = await fetch("/api/assistant/run", {
         method: "POST",
         body: JSON.stringify({
           id,
           runId,
+          threadId: note.threadId,
         }),
       });
       const run = (await res.json()) as Run;
@@ -104,7 +114,7 @@ function useAssistantRunWatcher(id: string) {
     } catch (error) {
       logger.error(`failed fetching run. ${error}`);
     }
-  }, [id, logger]);
+  }, [id, logger, storage]);
 
   useEffect(() => {
     const unsubscribe = useNoteStore.subscribe(
