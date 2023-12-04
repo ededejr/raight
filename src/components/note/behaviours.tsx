@@ -22,19 +22,14 @@ function useStorageSync(id: string) {
   const logger = useRef(Logger.create("useStorageSync")).current;
 
   useEffect(() => {
-    const unsubscribe = useNoteStore.subscribe(
-      (state) => ({
+    const unsubscribe = useNoteStore.subscribe((state) => {
+      logger.debug(`syncing to storage`);
+      storage.updateNote(id, {
         page: state.page,
         editor: state.editor,
         events: state.events,
-      }),
-      async (note) => {
-        if (!note) return;
-        if (note && !note.page && !note.editor && !note.events) return;
-        logger.debug(`syncing to storage`);
-        storage.updateNote(id, note);
-      }
-    );
+      });
+    });
 
     return () => unsubscribe();
   }, [id, logger, storage]);

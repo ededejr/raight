@@ -59,11 +59,13 @@ export function NoteEditor({ id, className }: Props) {
           return;
         }
 
-        if (note.editor.html) {
-          editor.commands.setContent(note.editor.html);
+        if (note.editor.text) {
+          editor.commands.setContent(note.editor.text);
         }
 
         useNoteStore.setState((state) => {
+          state.editor.html = editor.getHTML();
+          state.editor.text = editor.getText();
           state.editor.words = editor.storage.characterCount.words();
           state.events.push({
             type: "create",

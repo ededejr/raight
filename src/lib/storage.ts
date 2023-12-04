@@ -80,7 +80,7 @@ export class AppStorage {
       return;
     }
     note = { ...existing, ...note };
-    this.storage.setItem(existing.id, JSON.stringify(note));
+    this.storage.setItem(this.formatId("note", id), JSON.stringify(note));
   }
 
   async deleteNote(id: string) {
