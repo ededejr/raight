@@ -1,0 +1,19 @@
+{
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/app",
+  "name": "Babble",
+  "short_name": "Babble",
+  "description": "Talk about anything with your favorite llms.",
+  "icons": {
+    "16": "/assets/icons/logo.16x16.png",
+    "32": "/assets/icons/logo.32x32.png",
+    "64": "/assets/icons/logo.64x64.png",
+    "72": "/assets/icons/logo.72x72.png",
+    "192": "/assets/icons/logo.192x192.png",
+    "384": "/assets/icons/logo.384x384.png",
+    "512": "/assets/icons/logo.512x512.png"
+  }
+}

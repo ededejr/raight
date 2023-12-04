@@ -1,0 +1,302 @@
+.typography {
+  --typography-body: hsl(var(--foreground));
+  --typography-headings: hsl(var(--foreground));
+  --typography-quotes: #6b7280;
+  --typography-quotes-border: #e5e7eb;
+  --typography-links: var(--theme-primary-dim);
+  --typography-link-hover: var(--theme-primary-bright);
+  --typography-link-underline: var(--theme-primary);
+  --typography-link-hover-underline: var(--theme-primary-bright);
+  --typography-pre: #d1d5db;
+  --typography-pre-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --typography-bold: hsl(var(--foreground));
+  --typography-kbd: hsl(var(--foreground));
+  --typography-kbd-border: #e5e7eb;
+  --typography-kbd-bg: #f9fafb;
+  --typography-code: hsl(var(--foreground));
+  --typography-hr: rgba(17, 24, 39, 0.05);
+  --typography-th-borders: rgba(17, 24, 39, 0.2);
+  --typography-td-borders: rgba(17, 24, 39, 0.05);
+  --shiki-color-text: #fff;
+  --shiki-token-constant: #6ee7b7;
+  --shiki-token-string: #6ee7b7;
+  --shiki-token-comment: #6b7280;
+  --shiki-token-keyword: #7dd3fc;
+  --shiki-token-parameter: #f9a8d4;
+  --shiki-token-function: #c4b5fd;
+  --shiki-token-string-expression: #6ee7b7;
+  --shiki-token-punctuation: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  .typography {
+    --typography-body: hsl(var(--foreground));
+    --typography-headings: #fff;
+    --typography-quotes: #9ca3af;
+    --typography-quotes-border: #1f2937;
+    --typography-links: var(--theme-primary-dim);
+    --typography-link-hover: #fff;
+    --typography-link-underline: var(--theme-primary);
+    --typography-link-hover-underline: hsla(0, 0%, 100%, 0.4);
+    --typography-pre: #9ca3af;
+    --typography-pre-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, 0.1);
+    --typography-bold: hsl(var(--foreground));
+    --typography-kbd: hsl(var(--foreground));
+    --typography-kbd-border: #1f2937;
+    --typography-kbd-bg: #111827;
+    --typography-code: hsl(var(--foreground));
+    --typography-hr: hsla(0, 0%, 100%, 0.1);
+    --typography-th-borders: hsla(0, 0%, 100%, 0.1);
+    --typography-td-borders: hsla(0, 0%, 100%, 0.05);
+  }
+}
+
+.typography {
+  color: var(--typography-body);
+  /* font-size: 0.875rem; */
+  /* line-height: 1.5rem; */
+}
+
+.typography h1 {
+  font-size: 1.5rem;
+  line-height: 2.5rem;
+}
+
+.typography h2 {
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+.typography h1,
+.typography h2,
+.typography h3 {
+  font-family: var(--font-typography-heading), Mona Sans, ui-sans-serif,
+    system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, sans-serif, Noto Sans, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  color: var(--typography-headings);
+  font-weight: 600;
+}
+
+.typography h3 {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 0.75rem;
+  column-gap: 0.75rem;
+}
+
+.typography h3 > svg {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.typography h4 {
+  color: var(--typography-headings);
+  font-family: var(--font-typography-heading), Mona Sans, ui-sans-serif,
+    system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.typography blockquote {
+  border-left: 3px solid var(--typography-quotes-border);
+  padding-left: 1.5rem;
+  color: var(--typography-quotes);
+}
+
+.typography a:not(h2 a) {
+  font-weight: 600;
+  color: var(--typography-links);
+  text-decoration: underline;
+  -webkit-text-decoration-color: var(--typography-link-underline);
+  text-decoration-color: var(--typography-link-underline);
+  text-underline-offset: 2px;
+  transition-property: color, -webkit-text-decoration-color;
+  transition-property: color, text-decoration-color;
+  transition-property: color, text-decoration-color,
+    -webkit-text-decoration-color;
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.typography a:not(h2 a):hover {
+  color: var(--typography-link-hover);
+  -webkit-text-decoration-color: var(--typography-link-hover-underline);
+  text-decoration-color: var(--typography-link-hover-underline);
+}
+
+.typography strong {
+  font-weight: 600;
+}
+
+.typography strong:not(a strong) {
+  color: var(--typography-bold);
+}
+
+.typography kbd {
+  display: inline-block;
+  border-radius: 0.25rem;
+  background-color: var(--typography-kbd-bg);
+  padding: 0 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  color: var(--typography-kbd);
+  box-shadow: inset 0 0 0 1px var(--typography-kbd-border);
+}
+
+.typography code,
+.typography kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    Liberation Mono, Courier New, monospace;
+}
+
+.typography code:not(a code, pre code) {
+  color: var(--typography-code);
+}
+
+.typography code:not(pre code) {
+  font-size: calc(12 / 14 * 1em);
+  line-height: 1;
+  font-weight: 700;
+}
+
+.typography code:not(pre code):after,
+.typography code:not(pre code):before {
+  content: "`";
+}
+
+.typography pre {
+  display: flex;
+  background-color: #111827;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  box-shadow: var(--typography-pre-shadow);
+}
+
+.typography pre code {
+  flex: none;
+  padding: 1.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: var(--typography-pre);
+}
+
+.typography hr {
+  border-color: var(--typography-hr);
+}
+
+.typography ol,
+.typography ul {
+  padding-left: 1.375rem;
+}
+
+.typography ul {
+  list-style-type: disc;
+}
+
+.typography ol {
+  list-style-type: decimal;
+}
+
+.typography li {
+  padding-left: 0.625rem;
+}
+
+.typography li::marker {
+  color: #9ca3af;
+}
+
+.typography ol > li::marker {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.typography table {
+  width: 100%;
+  text-align: left;
+}
+
+.typography thead {
+  border-bottom: 1px solid var(--typography-th-borders);
+}
+
+.typography thead th {
+  font-weight: 600;
+  padding-top: 0;
+  padding-bottom: calc(0.5rem - 1px);
+  color: var(--typography-headings);
+}
+
+.typography tbody tr {
+  border-bottom: 1px solid var(--typography-td-borders);
+}
+
+.typography tbody td {
+  padding-top: calc(0.5rem - 1px);
+  padding-bottom: 0.5rem;
+}
+
+.typography :is(th, td):first-child {
+  padding-left: 0;
+  padding-right: 0.5rem;
+}
+
+.typography :is(th, td):last-child {
+  padding-left: 0.5rem;
+  padding-right: 0;
+}
+
+.typography :is(th, td):not(:first-child, :last-child) {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.typography > * {
+  margin-top: 1.5rem;
+}
+
+.typography :is(h1, h2, h3, h4, blockquote, pre, table) {
+  margin-top: 2rem;
+}
+
+.typography hr {
+  margin-top: calc(4rem - 1px);
+}
+
+.typography li {
+  margin-top: 1rem;
+}
+
+.typography li > :is(p, ol, ul) {
+  margin-top: 1rem;
+}
+
+.typography :is(h1, h2, h3, h4) + * {
+  margin-top: 1rem;
+}
+
+.typography :is(blockquote, pre, table) + * {
+  margin-top: 2rem;
+}
+
+.typography hr + * {
+  margin-top: 4rem;
+}
+
+.typography li > :first-child,
+.typography > :first-child {
+  margin-top: 0;
+}
+
+.typography p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
