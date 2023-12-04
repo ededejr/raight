@@ -4,9 +4,9 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/app",
-  "name": "Babble",
-  "short_name": "Babble",
-  "description": "Talk about anything with your favorite llms.",
+  "name": "Raight",
+  "short_name": "Raight",
+  "description": "Assisted writing with llms.",
   "icons": {
     "16": "/assets/icons/logo.16x16.png",
     "32": "/assets/icons/logo.32x32.png",
