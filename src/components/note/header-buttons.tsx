@@ -3,7 +3,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { Edit, Terminal, Trash } from "lucide-react";
+import { Edit, Sparkles, Terminal, Trash } from "lucide-react";
 import { Button } from "@raight/ui/button";
 import {
   Dialog,
@@ -40,13 +40,40 @@ export function NoteHeaderButtons({ note }: Props) {
     <div className="flex flex-row flex-nowrap gap-1">
       <Button
         size="icon"
-        variant="ghost"
+        variant={
+          useNoteStore((state) => state.page.panelContent) === "suggestions"
+            ? "default"
+            : "ghost"
+        }
         onClick={() => {
           useNoteStore.setState((state) => ({
             ...state,
             page: {
               ...state.page,
-              showDebugger: !state.page.showDebugger,
+              panelContent:
+                state.page.panelContent === "suggestions"
+                  ? null
+                  : "suggestions",
+            },
+          }));
+        }}
+      >
+        <Sparkles className="h-4 w-4" />
+      </Button>
+      <Button
+        size="icon"
+        variant={
+          useNoteStore((state) => state.page.panelContent) === "debugger"
+            ? "default"
+            : "ghost"
+        }
+        onClick={() => {
+          useNoteStore.setState((state) => ({
+            ...state,
+            page: {
+              ...state.page,
+              panelContent:
+                state.page.panelContent === "debugger" ? null : "debugger",
             },
           }));
         }}

@@ -13,11 +13,11 @@ import CharacterCount from "@tiptap/extension-character-count";
 import Heading from "@tiptap/extension-heading";
 import { cn } from "@raight/utils";
 import { NoteBehaviours } from "./behaviours";
-import { NoteDebugger } from "./debugger";
 import { useNoteStore } from "./store";
 import { NoteFooter } from "./footer";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useAppContext } from "../context";
+import { NotePanel } from "./panel";
 
 interface Props {
   id: string;
@@ -119,7 +119,7 @@ export function NoteEditor({ id, className }: Props) {
             <NoteFooter />
           </div>
         </div>
-        <NoteDebugger />
+        <NotePanel />
       </div>
       <NoteBehaviours id={id} />
     </div>

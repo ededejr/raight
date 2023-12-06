@@ -34,7 +34,7 @@ export interface NoteState {
     style?: string;
     rating?: number;
     suggestions: string[];
-    showDebugger: boolean;
+    panelContent?: "suggestions" | "debugger";
   };
   editor: {
     html: string;
