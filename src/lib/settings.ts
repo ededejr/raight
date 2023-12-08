@@ -20,9 +20,6 @@ export const Settings = {
   apis: {
     openai: {
       token: env`OPENAI_API_KEY`,
-      assistants: {
-        jorja: env`OPENAI_JORJA_ASSISSTANT_ID`,
-      },
     },
   },
 };

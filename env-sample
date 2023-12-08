@@ -1,6 +1,7 @@
 # Site
+
 SITE_URL=""
+
 # OpenAI
+
 OPENAI_API_KEY=""
-## These assistants can be whatever really, I'm using jorja because that's what i had setup
-OPENAI_JORJA_ASSISSTANT_ID=""

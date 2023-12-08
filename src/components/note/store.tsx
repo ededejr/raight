@@ -10,25 +10,10 @@ export interface StateEvent {
   text: string;
 }
 
-export interface Run {
-  id: string;
-  status:
-    | "queued"
-    | "in_progress"
-    | "requires_action"
-    | "cancelling"
-    | "cancelled"
-    | "failed"
-    | "completed"
-    | "expired";
-  message?: string;
-}
-
 export interface NoteState {
   events: StateEvent[];
-  assistant: {
-    run: Run | null;
-    messages: string[];
+  status: {
+    isEvaluating: boolean;
   };
   page: {
     tone?: string;
@@ -49,13 +34,11 @@ export const useNoteStore = create(
   subscribeWithSelector(
     immer<NoteState>(() => ({
       events: [],
-      assistant: {
-        run: null,
-        messages: [],
+      status: {
+        isEvaluating: false,
       },
       page: {
         suggestions: [],
-        showDebugger: false,
       },
       editor: {
         html: ``,

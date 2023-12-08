@@ -1,7 +1,7 @@
 "use client";
 
 import { NoteState } from "@raight/components/note/store";
-import { createThread, deleteThread } from "./actions";
+import { Constants } from "@raight/utils/constants";
 
 export class AppStorage {
   private storage: Storage;
@@ -53,9 +53,8 @@ export class AppStorage {
     return notes;
   }
 
-  async createNote(title: string) {
+  async createNote(title: string, model: (typeof Constants.llms)[number]) {
     const id = this.makeId("note");
-    const thread = await createThread();
     const pathCompliantId = id.replace("raight.note.", "");
     const note: Note = {
       id: pathCompliantId,
@@ -63,7 +62,7 @@ export class AppStorage {
       page: { suggestions: [] },
       editor: { html: "", text: "", json: {}, words: 0 },
       title,
-      threadId: thread.id,
+      model,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -88,7 +87,6 @@ export class AppStorage {
     if (!note) {
       return;
     }
-    await deleteThread(note.threadId);
     const formattedId = this.formatId("note", id);
     this.storage.removeItem(formattedId);
   }
@@ -109,6 +107,6 @@ export type Note = Pick<NoteState, "events" | "page" | "editor"> & {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  threadId: string;
+  model: (typeof Constants.llms)[number];
   title: string;
 };

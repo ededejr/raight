@@ -28,6 +28,14 @@ import { useState } from "react";
 import { useNoteStore } from "./store";
 import { useAppContext } from "../context";
 import { Note } from "@raight/lib/storage";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@raight/ui/select";
+import { Constants } from "@raight/utils/constants";
 
 interface Props {
   note: Note;
@@ -108,24 +116,26 @@ const editNoteSchema = z.object({
     .max(50, {
       message: "Name must not be longer than 50 characters.",
     }),
+  model: z.enum(Constants.llms),
 });
 
 type EditNoteFormValues = z.infer<typeof editNoteSchema>;
 
-export function EditNote({ note: editor }: Props) {
+export function EditNote({ note }: Props) {
   const router = useRouter();
   const { storage } = useAppContext();
   const [open, setOpen] = useState(false);
   const form = useForm<EditNoteFormValues>({
     resolver: zodResolver(editNoteSchema),
     defaultValues: {
-      title: editor.title,
+      title: note.title,
+      model: note.model,
     },
     mode: "onSubmit",
   });
 
   const onSubmit = async (data: EditNoteFormValues) => {
-    storage.updateNote(editor.id, { title: data.title });
+    storage.updateNote(note.id, { title: data.title, model: data.model });
     router.refresh();
     setOpen(false);
   };
@@ -164,6 +174,34 @@ export function EditNote({ note: editor }: Props) {
                     <FormControl>
                       <Input id="name" {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="model"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Model</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="col-span-3">
+                          <SelectValue placeholder="Select a model" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Constants.llms.map((model, i) => (
+                          <SelectItem key={i} value={model}>
+                            {model}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
                     <FormMessage />
                   </FormItem>
                 )}

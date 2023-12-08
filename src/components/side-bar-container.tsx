@@ -11,6 +11,7 @@ export function SideBarContainer({ children }: PropsWithChildren) {
 
   return (
     <aside
+      suppressHydrationWarning
       className={cn(
         "hidden relative z-10",
         "h-full min-h-full flex-col flex-nowrap gap-2 md:flex",
