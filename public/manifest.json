@@ -3,7 +3,7 @@
   "background_color": "#000000",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/app",
+  "start_url": "/",
   "name": "Raight",
   "short_name": "Raight",
   "description": "Assisted writing with llms.",
