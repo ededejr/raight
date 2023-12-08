@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useCallback, useEffect, useRef } from "react";
+import { memo, use, useCallback, useEffect, useRef } from "react";
 import debounce from "debounce";
 import { Logger } from "@raight/lib/logger";
 import { StateEvent, useNoteStore } from "./store";
@@ -54,6 +54,8 @@ function useEvaluation(id: string) {
       (state) => state.editor.text,
       debounce(async (text: string) => {
         if (!text) return;
+        if (text.length < 10) return;
+        if (useNoteStore.getState().status.isEvaluating) return;
 
         const note = storage.getNoteById(id);
         if (!note) return;
@@ -134,9 +136,12 @@ function useEvaluation(id: string) {
 
           useNoteStore.setState((state) => {
             state.events.push(...events);
-            state.status.isEvaluating = false;
           });
         }
+
+        useNoteStore.setState((state) => {
+          state.status.isEvaluating = false;
+        });
       }, 1000)
     );
 

@@ -33,7 +33,7 @@ function FooterItem({ children }: PropsWithChildren) {
 function RunIndicator() {
   const isRunning = useNoteStore((state) => Boolean(state.status.isEvaluating));
 
-  // todo - Use a ref to props to avoid re-rendering the icon
+  // @todo - Use a ref to props to avoid re-rendering the icon
   // while its spinning
   const locals = useRef({
     initial: {
