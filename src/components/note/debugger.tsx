@@ -1,3 +1,5 @@
+"use client";
+
 import { ScrollArea } from "@raight/ui/scroll-area";
 import { useNoteStore } from "./store";
 

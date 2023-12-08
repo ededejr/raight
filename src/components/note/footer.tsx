@@ -1,9 +1,10 @@
+"use client";
+
 import { Badge } from "@raight/ui/badge";
 import { useNoteStore } from "./store";
 import { PropsWithChildren, memo, useRef } from "react";
 import { Orbit } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@raight/utils";
 
 export function NoteFooter() {
   return (

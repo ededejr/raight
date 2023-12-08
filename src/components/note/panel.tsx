@@ -1,3 +1,5 @@
+"use client";
+
 import { useNoteStore } from "./store";
 import { NoteDebugger } from "./debugger";
 import { NoteSuggestions } from "./suggestions";
