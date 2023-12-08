@@ -37,7 +37,7 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --background: 0 0% 3.9%;
+      --background: 0 0% 8.5%;
       --foreground: 0 0% 98%;
 
       --card: 0 0% 3.9%;
@@ -49,7 +49,7 @@
       --primary: 0 0% 98%;
       --primary-foreground: 0 0% 9%;
 
-      --secondary: 0 0% 14.9%;
+      --secondary: 0 0% 3.9%;
       --secondary-foreground: 0 0% 98%;
 
       --muted: 0 0% 14.9%;
@@ -61,7 +61,7 @@
       --destructive: 0 62.8% 30.6%;
       --destructive-foreground: 0 0% 98%;
 
-      --border: 0 0% 20.9%;
+      --border: 0 0% 10.9%;
       --input: 0 0% 14.9%;
       --ring: 0 0% 83.1%;
     }
@@ -73,16 +73,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-secondary text-foreground;
   }
 }
 
 .assistant-editor > * > .tiptap {
   @apply w-full h-full border-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring;
-}
-
-.conversation-composer > * > .tiptap {
-  @apply flex w-full rounded-lg border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring;
 }
 
 .tiptap > p.is-composer-empty:first-child::before {

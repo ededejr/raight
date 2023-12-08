@@ -3,7 +3,11 @@ import { NoteDebugger } from "./debugger";
 import { NoteSuggestions } from "./suggestions";
 import { cn } from "@raight/utils";
 
-export function NotePanel() {
+interface Props {
+  className?: string;
+}
+
+export function NotePanel({ className }: Props) {
   const panelContent = useNoteStore((state) => state.page.panelContent);
 
   let content = null;
@@ -18,7 +22,8 @@ export function NotePanel() {
     <div
       className={cn(
         "transition-all h-full shrink-0",
-        content ? "w-2/5" : "w-0 translate-x-[40%]"
+        content ? "w-2/5 translate-x-0 mx-2" : "w-0 translate-x-[40%]",
+        className
       )}
     >
       {content}

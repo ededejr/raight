@@ -14,6 +14,7 @@ import {
 } from "@raight/ui/form";
 import { Checkbox } from "@raight/ui/checkbox";
 import { useNoteStore } from "./store";
+import { useEffect } from "react";
 
 const schema = z.object({
   suggestions: z
@@ -41,10 +42,19 @@ export function NoteSuggestions() {
     mode: "onSubmit",
   });
 
-  const { fields } = useFieldArray({
+  const { fields, replace } = useFieldArray({
     name: "suggestions",
     control: form.control,
   });
+
+  useEffect(() => {
+    replace(
+      suggestions.map((suggestion) => ({
+        suggestion,
+        value: false,
+      }))
+    );
+  }, [suggestions, replace]);
 
   function onSubmit(data: Values) {
     console.log(data);
@@ -59,8 +69,8 @@ export function NoteSuggestions() {
   }
 
   return (
-    <ScrollArea className="w-full h-full p-4 border-l">
-      <Card className="border-0">
+    <ScrollArea className="w-full h-full">
+      <Card className="py-0 border-0 bg-transparent shadow-none">
         <CardHeader>
           <CardTitle>Suggestions</CardTitle>
         </CardHeader>
@@ -93,10 +103,8 @@ export function NoteSuggestions() {
                   />
                 ))}
               </div>
-              <div className="flex flex-nowrap w-full text-right">
-                <Button variant="outline" type="submit">
-                  Apply
-                </Button>
+              <div className="flex flex-nowrap w-full justify-end">
+                <Button type="submit">Apply</Button>
               </div>
             </form>
           </Form>

@@ -14,7 +14,6 @@ import Heading from "@tiptap/extension-heading";
 import { cn } from "@raight/utils";
 import { NoteBehaviours } from "./behaviours";
 import { useNoteStore } from "./store";
-import { NoteFooter } from "./footer";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useAppContext } from "../context";
 import { NotePanel } from "./panel";
@@ -115,11 +114,7 @@ export function NoteEditor({ id, className }: Props) {
               />
             </ScrollArea>
           </div>
-          <div className="sticky bottom-0 px-4 py-1 text-xs border-t flex flex-row flex-nowrap justify-end bg-background items-center gap-1">
-            <NoteFooter />
-          </div>
         </div>
-        <NotePanel />
       </div>
       <NoteBehaviours id={id} />
     </div>

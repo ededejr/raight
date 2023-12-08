@@ -96,7 +96,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <body
         className={cn(
           inter.className,
-          "h-full w-full bg-background text-foreground",
+          "h-full w-full bg-secondary text-foreground",
           "relative"
         )}
       >
@@ -106,9 +106,8 @@ export default async function RootLayout({ children }: PropsWithChildren) {
             <div
               className={cn(
                 "grow transition-all",
-                "pt-6 rounded-md md:ml-0",
-                "flex flex-col flex-nowrap",
-                "overflow-hidden shadow-md"
+                "pt-4 m-2 rounded-md",
+                "flex flex-col flex-nowrap"
               )}
             >
               {children}

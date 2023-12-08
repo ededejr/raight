@@ -12,7 +12,7 @@ export function SideBarContainer({ children }: PropsWithChildren) {
   return (
     <aside
       className={cn(
-        "hidden border-r relative z-10",
+        "hidden relative z-10",
         "h-full min-h-full flex-col flex-nowrap gap-2 md:flex",
         "transition-all pt-4 bg-secondary shrink-0",
         isSideBarOpen ? "w-60 px-2" : "w-0 px-0 -translate-x-60"

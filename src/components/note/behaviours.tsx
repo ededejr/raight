@@ -22,6 +22,17 @@ function useStorageSync(id: string) {
   const logger = useRef(Logger.create("useStorageSync")).current;
 
   useEffect(() => {
+    const note = storage.getNoteById(id);
+
+    if (note) {
+      logger.debug(`found note in storage`);
+      useNoteStore.setState((state) => {
+        state.page = note.page;
+        state.editor = note.editor;
+        state.events = note.events;
+      });
+    }
+
     const unsubscribe = useNoteStore.subscribe((state) => {
       logger.debug(`syncing to storage`);
       storage.updateNote(id, {
