@@ -37,7 +37,7 @@ export function NotePageContainer({ id }: Props) {
         </div>
         <NotePanel className="rounded-md overflow-hidden" />
       </div>
-      <div className="shrink-0 px-4 py-1 text-xs flex flex-row flex-nowrap justify-end items-center gap-1">
+      <div className="shrink-0 px-4 py-1">
         <NoteFooter />
       </div>
       <NoteBehaviours id={id} />

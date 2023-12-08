@@ -51,19 +51,11 @@ export function NoteEditor({ id, className }: Props) {
     onCreate: ({ editor }) => {
       if (editor) {
         const note = storage.getNoteById(id);
-        if (!note) {
-          return;
-        }
-
-        if (note.editor.text) {
+        if (note && note.editor.text) {
           editor.commands.setContent(note.editor.json, false);
         }
 
         useNoteStore.setState((state) => {
-          state.editor.html = editor.getHTML();
-          state.editor.text = editor.getText();
-          state.editor.json = editor.getJSON();
-          state.editor.words = editor.storage.characterCount.words();
           state.events.push({
             type: "create",
             text: editor.getText(),

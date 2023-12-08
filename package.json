@@ -37,7 +37,7 @@
     "debounce": "^2.0.0",
     "dotenv": "^16.3.1",
     "encoding": "^0.1.13",
-    "framer-motion": "^10.16.12",
+    "framer-motion": "^10.16.16",
     "immer": "^10.0.3",
     "lowlight": "^3.1.0",
     "lucide-react": "^0.294.0",

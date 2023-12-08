@@ -19,7 +19,7 @@ export const NoteBehaviours = memo(function Behaviours({ id }: Props) {
 
 function useStorageSync(id: string) {
   const { storage } = useAppContext();
-  const logger = useRef(Logger.create("useStorageSync")).current;
+  const logger = useLogger("useStorageSync");
 
   useEffect(() => {
     const note = storage.getNoteById(id);
@@ -48,7 +48,8 @@ function useStorageSync(id: string) {
 
 function useAssistantReporting(id: string) {
   const { storage } = useAppContext();
-  const logger = useRef(Logger.create("useNoteReporting")).current;
+  const logger = useLogger("useNoteReporting");
+
   useEffect(() => {
     const unsubscribe = useNoteStore.subscribe(
       (state) => state.editor.text,
@@ -58,6 +59,9 @@ function useAssistantReporting(id: string) {
 
         const note = storage.getNoteById(id);
         if (!note) return;
+
+        const latestEvent = note.events.at(-1);
+        if (latestEvent && latestEvent.type === "create") return;
 
         try {
           const res = await fetch("/api/assistant/editor", {
@@ -91,7 +95,7 @@ function useAssistantReporting(id: string) {
 function useAssistantRunWatcher(id: string) {
   const { storage } = useAppContext();
   const intervalId = useRef<NodeJS.Timeout | undefined>(undefined);
-  const logger = useRef(Logger.create("useNoteReporting")).current;
+  const logger = useLogger("useNoteReporting");
   const fetchRun = useCallback(async () => {
     const runId = useNoteStore.getState().assistant.run?.id;
     if (!runId) return;
@@ -222,4 +226,8 @@ function useAssistantRunWatcher(id: string) {
       unsubscribe();
     };
   }, [id, logger, fetchRun]);
+}
+
+function useLogger(namespace: string) {
+  return useRef(Logger.create(namespace)).current;
 }
