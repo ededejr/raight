@@ -62,6 +62,7 @@ export function NoteEditor({ id, className }: Props) {
         useNoteStore.setState((state) => {
           state.editor.html = editor.getHTML();
           state.editor.text = editor.getText();
+          state.editor.json = editor.getJSON();
           state.editor.words = editor.storage.characterCount.words();
           state.events.push({
             type: "create",
