@@ -33,7 +33,7 @@ function Style() {
 
 function Rating() {
   const rating = useNoteStore((state) => state.page.rating);
-  return rating != undefined ? <FooterItem>{rating}</FooterItem> : null;
+  return rating != undefined ? <FooterItem>{rating}/5</FooterItem> : null;
 }
 
 function Words() {

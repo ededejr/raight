@@ -60,8 +60,8 @@ export class AppStorage {
     const note: Note = {
       id: pathCompliantId,
       events: [],
-      page: { showDebugger: false, suggestions: [] },
-      editor: { html: "", text: "", words: 0 },
+      page: { suggestions: [] },
+      editor: { html: "", text: "", json: {}, words: 0 },
       title,
       threadId: thread.id,
       createdAt: new Date(),

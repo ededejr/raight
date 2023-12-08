@@ -1,4 +1,5 @@
 "use client";
+import { JSONContent } from "@tiptap/react";
 import { create } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
@@ -40,6 +41,7 @@ export interface NoteState {
     html: string;
     text: string;
     words: number;
+    json: JSONContent;
   };
 }
 
@@ -58,6 +60,7 @@ export const useNoteStore = create(
       editor: {
         html: ``,
         text: ``,
+        json: {},
         words: 0,
       },
     }))

@@ -12,11 +12,8 @@ import History from "@tiptap/extension-history";
 import CharacterCount from "@tiptap/extension-character-count";
 import Heading from "@tiptap/extension-heading";
 import { cn } from "@raight/utils";
-import { NoteBehaviours } from "./behaviours";
 import { useNoteStore } from "./store";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { useAppContext } from "../context";
-import { NotePanel } from "./panel";
 
 interface Props {
   id: string;
@@ -59,7 +56,7 @@ export function NoteEditor({ id, className }: Props) {
         }
 
         if (note.editor.text) {
-          editor.commands.setContent(note.editor.text);
+          editor.commands.setContent(note.editor.json, false);
         }
 
         useNoteStore.setState((state) => {
@@ -78,10 +75,12 @@ export function NoteEditor({ id, className }: Props) {
       if (editor) {
         const html = editor.getHTML();
         const text = editor.getText();
+        const json = editor.getJSON();
 
         useNoteStore.setState((state) => {
           state.editor.html = html;
           state.editor.text = text;
+          state.editor.json = json;
           state.editor.words = editor.storage.characterCount.words();
           state.events.push({
             type: "update",
@@ -100,23 +99,11 @@ export function NoteEditor({ id, className }: Props) {
   return (
     <div
       className={cn(
-        "flex flex-col flex-nowrap w-full h-full transition-all",
+        "flex flex-col flex-nowrap w-full h-full transition-all assistant-editor",
         className
       )}
     >
-      <div className="w-full h-full flex flex-nowrap flex-row">
-        <div className="w-full h-full flex flex-col flex-nowrap grow">
-          <div className="grow container overflow-auto scroll-smooth">
-            <ScrollArea className="assistant-editor w-full h-full pt-4">
-              <EditorContent
-                className="w-full h-full typography"
-                editor={editor}
-              />
-            </ScrollArea>
-          </div>
-        </div>
-      </div>
-      <NoteBehaviours id={id} />
+      <EditorContent className="w-full h-full typography" editor={editor} />
     </div>
   );
 }

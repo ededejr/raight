@@ -31,7 +31,6 @@ export function SideBarContent() {
               return (
                 <li key={note.id}>
                   <SideBarItem key={note.id} href={`/note/${note.id}`}>
-                    <Edit3 className="h-4 w-4" />
                     <span className="line-clamp-1">{note.title}</span>
                   </SideBarItem>
                 </li>

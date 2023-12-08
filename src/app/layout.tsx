@@ -101,7 +101,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         )}
       >
         <AppContextProvider>
-          <div className="flex h-full w-full flex-nowrap">
+          <div className="flex h-full w-full flex-nowrap overflow-hidden">
             <SideBar />
             <div
               className={cn(

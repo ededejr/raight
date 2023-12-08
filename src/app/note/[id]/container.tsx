@@ -1,10 +1,12 @@
 "use client";
 
 import { useAppContext } from "@raight/components/context";
+import { NoteBehaviours } from "@raight/components/note/behaviours";
 import { NoteEditor } from "@raight/components/note/editor";
 import { NoteFooter } from "@raight/components/note/footer";
 import { NoteHeaderButtons } from "@raight/components/note/header-buttons";
 import { NotePanel } from "@raight/components/note/panel";
+import { ScrollArea, ScrollBar } from "@raight/ui/scroll-area";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -22,22 +24,23 @@ export function NotePageContainer({ id }: Props) {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <header className="sticky top-0 flex items-center justify-between px-6 pb-4">
+    <div className="flex flex-col flex-nowrap h-full">
+      <header className="shrink-0 flex items-center justify-between px-6 pb-4">
         <h1 className="text-lg font-semibold line-clamp-1">{note.title}</h1>
         <NoteHeaderButtons note={note} />
       </header>
-      <div className="grow flex flex-nowrap flex-row mx-2">
-        <div className="flex flex-col flex-nowrap w-full h-full">
-          <div className="grow overflow-auto border rounded-md shadow-lg bg-background">
+      <div className="grow flex flex-nowrap flex-row overflow-hidden pb-2 px-2">
+        <div className="grow border rounded-md shadow-sm bg-background h-full">
+          <ScrollArea className="h-full pt-2 px-4">
             <NoteEditor id={note.id} />
-          </div>
-          <div className="px-4 py-2 mt-2 text-xs flex flex-row flex-nowrap justify-end items-center gap-1">
-            <NoteFooter />
-          </div>
+          </ScrollArea>
         </div>
         <NotePanel className="rounded-md overflow-hidden" />
       </div>
+      <div className="shrink-0 px-4 py-1 text-xs flex flex-row flex-nowrap justify-end items-center gap-1">
+        <NoteFooter />
+      </div>
+      <NoteBehaviours id={id} />
     </div>
   );
 }
