@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { openai } from "@raight/lib/ai";
 import { Logger } from "@raight/lib/logger";
 import SystemInstructions from "./system-instructions.json";
-import { Constants } from "@raight/utils/constants";
+import { Constants } from "@raight/lib/constants";
 
 const schema = z.object({
   id: z.string(),

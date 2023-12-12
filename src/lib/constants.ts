@@ -16,3 +16,5 @@ export const Constants = {
     "gpt-3.5-turbo-16k-0613",
   ] as const,
 };
+
+export type LLM = (typeof Constants.llms)[number];

@@ -1,7 +1,6 @@
 "use client";
 import { SideBarItem } from "./side-bar-item";
-import { groupBy } from "@raight/utils/group-by";
-import { Edit3, MessageSquare } from "lucide-react";
+import { groupBy } from "@raight/utils";
 import { useAppContext } from "./context";
 
 export function SideBarContent() {

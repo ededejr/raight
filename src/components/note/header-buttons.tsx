@@ -35,7 +35,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@raight/ui/select";
-import { Constants } from "@raight/utils/constants";
+import { Constants } from "@raight/lib/constants";
 
 interface Props {
   note: Note;

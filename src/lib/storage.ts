@@ -1,7 +1,7 @@
 "use client";
 
 import { NoteState } from "@raight/components/note/store";
-import { Constants } from "@raight/utils/constants";
+import { Constants, LLM } from "@raight/lib/constants";
 
 export class AppStorage {
   private storage: Storage;
@@ -53,7 +53,7 @@ export class AppStorage {
     return notes;
   }
 
-  async createNote(title: string, model: (typeof Constants.llms)[number]) {
+  async createNote(title: string, model: LLM) {
     const id = this.makeId("note");
     const pathCompliantId = id.replace("raight.note.", "");
     const note: Note = {
@@ -107,6 +107,6 @@ export type Note = Pick<NoteState, "events" | "page" | "editor"> & {
   id: string;
   createdAt: Date;
   updatedAt: Date;
-  model: (typeof Constants.llms)[number];
+  model: LLM;
   title: string;
 };
