@@ -6,7 +6,7 @@ import { NoteEditor } from "@raight/components/note/editor";
 import { NoteFooter } from "@raight/components/note/footer";
 import { NoteHeaderButtons } from "@raight/components/note/header-buttons";
 import { NotePanel } from "@raight/components/note/panel";
-import { ScrollArea, ScrollBar } from "@raight/ui/scroll-area";
+import { ScrollArea } from "@raight/ui/scroll-area";
 import { useRouter } from "next/navigation";
 
 interface Props {

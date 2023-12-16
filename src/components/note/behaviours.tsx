@@ -1,7 +1,6 @@
 "use client";
-
-import { memo, use, useCallback, useEffect, useRef } from "react";
 import debounce from "debounce";
+import { memo, useEffect, useRef } from "react";
 import { Logger } from "@raight/lib/logger";
 import { StateEvent, useNoteStore } from "./store";
 import { useAppContext } from "../context";
@@ -11,10 +10,28 @@ interface Props {
 }
 
 export const NoteBehaviours = memo(function Behaviours({ id }: Props) {
+  useDocumentSync(id);
   useStorageSync(id);
   useEvaluation(id);
   return null;
 });
+
+function useDocumentSync(id: string) {
+  const { storage } = useAppContext();
+  const locals = useRef({
+    title: document.title,
+  });
+
+  useEffect(() => {
+    const title = locals.current.title;
+    const note = storage.getNoteById(id);
+    if (!note) return;
+    document.title = `${note.title} / ${title}`;
+    return () => {
+      document.title = title;
+    };
+  }, [id, storage]);
+}
 
 function useStorageSync(id: string) {
   const { storage } = useAppContext();
