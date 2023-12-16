@@ -1,41 +1,20 @@
 "use client";
-
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Edit, Sparkles, Terminal, Trash } from "lucide-react";
 import { Button } from "@raight/ui/button";
+import { Note } from "@raight/lib/storage";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@raight/ui/dialog";
-import { Input } from "@raight/ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@raight/ui/form";
-import { useState } from "react";
 import { useNoteStore } from "./store";
 import { useAppContext } from "../context";
-import { Note } from "@raight/lib/storage";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@raight/ui/select";
-import { Constants } from "@raight/lib/constants";
+import { NoteForm } from "../note-form";
 
 interface Props {
   note: Note;
@@ -105,51 +84,13 @@ export function NoteHeaderButtons({ note }: Props) {
   );
 }
 
-const editNoteSchema = z.object({
-  title: z
-    .string({
-      required_error: "Please enter a title",
-    })
-    .min(2, {
-      message: "Name must be at least 2 characters.",
-    })
-    .max(50, {
-      message: "Name must not be longer than 50 characters.",
-    }),
-  model: z.enum(Constants.llms),
-});
-
-type EditNoteFormValues = z.infer<typeof editNoteSchema>;
-
 export function EditNote({ note }: Props) {
   const router = useRouter();
   const { storage } = useAppContext();
   const [open, setOpen] = useState(false);
-  const form = useForm<EditNoteFormValues>({
-    resolver: zodResolver(editNoteSchema),
-    defaultValues: {
-      title: note.title,
-      model: note.model,
-    },
-    mode: "onSubmit",
-  });
-
-  const onSubmit = async (data: EditNoteFormValues) => {
-    storage.updateNote(note.id, { title: data.title, model: data.model });
-    router.refresh();
-    setOpen(false);
-  };
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(open) => {
-        setOpen(open);
-        if (!open) {
-          form.reset();
-        }
-      }}
-    >
+    <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger asChild>
         <Button size="icon" variant="ghost">
           <Edit className="h-4 w-4" />
@@ -163,54 +104,19 @@ export function EditNote({ note }: Props) {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input id="name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="model"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Model</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="col-span-3">
-                          <SelectValue placeholder="Select a model" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {Constants.llms.map((model, i) => (
-                          <SelectItem key={i} value={model}>
-                            {model}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <DialogFooter>
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </form>
-          </Form>
+          <NoteForm
+            defaultValues={note}
+            onSubmit={async (data) => {
+              storage.updateNote(note.id, {
+                title: data.title,
+                model: data.model,
+                type: data.type,
+              });
+              router.refresh();
+              setOpen(false);
+            }}
+            submitText="Save Changes"
+          />
         </div>
       </DialogContent>
     </Dialog>

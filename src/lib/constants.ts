@@ -15,6 +15,8 @@ export const Constants = {
     "gpt-3.5-turbo-0613",
     "gpt-3.5-turbo-16k-0613",
   ] as const,
+  noteTypes: ["generic", "thread", "email"] as const,
 };
 
 export type LLM = (typeof Constants.llms)[number];
+export type NoteType = (typeof Constants.noteTypes)[number];

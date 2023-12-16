@@ -1,6 +1,6 @@
 "use client";
-import { SideBarItem } from "./side-bar-item";
 import { groupBy } from "@raight/utils";
+import { SideBarItem } from "./side-bar-item";
 import { useAppContext } from "./context";
 
 export function SideBarContent() {
@@ -18,26 +18,22 @@ export function SideBarContent() {
       })
   );
 
-  return (
-    <>
-      {Object.keys(groups).map((group) => (
-        <section key={group} className="w-full">
-          <h3 className="h-9 pb-2 pt-3 px-2 text-xs font-medium text-ellipsis overflow-hidden break-all">
-            {group}
-          </h3>
-          <ul>
-            {groups[group].map((note) => {
-              return (
-                <li key={note.id}>
-                  <SideBarItem key={note.id} href={`/note/${note.id}`}>
-                    <span className="line-clamp-1">{note.title}</span>
-                  </SideBarItem>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      ))}
-    </>
-  );
+  return Object.keys(groups).map((group) => (
+    <section key={group} className="w-full">
+      <h3 className="h-9 pb-2 pt-3 px-2 text-xs font-medium text-ellipsis overflow-hidden break-all">
+        {group}
+      </h3>
+      <ul>
+        {groups[group].map((note) => {
+          return (
+            <li key={note.id}>
+              <SideBarItem key={note.id} href={`/note/${note.id}`}>
+                <span className="line-clamp-1">{note.title}</span>
+              </SideBarItem>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ));
 }
