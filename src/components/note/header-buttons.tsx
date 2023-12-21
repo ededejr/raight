@@ -14,7 +14,7 @@ import {
 } from "@raight/ui/dialog";
 import { useNoteStore } from "./store";
 import { useAppContext } from "../context";
-import { NoteForm } from "../note-form";
+import { NoteForm } from "./form";
 
 interface Props {
   note: Note;

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { SideBarContent } from "./side-bar-content";
 import { Logo } from "./logo";
+import { SideBarContent } from "./side-bar-content";
 import { SideBarContainer } from "./side-bar-container";
 import { NewNoteButton } from "./new-note-button";
 
@@ -15,7 +15,7 @@ export function SideBar() {
         </div>
         <div className="flex-1 grow">
           <nav className="flex flex-col w-full h-full px-4 text-sm font-medium">
-            <div className="grow" suppressHydrationWarning>
+            <div className="grow">
               <SideBarContent />
             </div>
             <div className="grid items-start pb-4">

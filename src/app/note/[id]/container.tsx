@@ -7,6 +7,7 @@ import { NoteFooter } from "@raight/components/note/footer";
 import { NoteHeaderButtons } from "@raight/components/note/header-buttons";
 import { NotePanel } from "@raight/components/note/panel";
 import { ScrollArea } from "@raight/ui/scroll-area";
+import { cn } from "@raight/utils";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -30,7 +31,12 @@ export function NotePageContainer({ id }: Props) {
         <NoteHeaderButtons note={note} />
       </header>
       <div className="grow flex flex-nowrap flex-row overflow-hidden pb-2 px-2">
-        <div className="grow border rounded-md shadow-sm bg-background h-full">
+        <div
+          className={cn(
+            "grow rounded-md h-full",
+            note.type !== "thread" && "border bg-background shadow-sm"
+          )}
+        >
           <ScrollArea className="h-full pt-2 px-4">
             <NoteEditor id={note.id} />
           </ScrollArea>

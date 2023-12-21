@@ -13,7 +13,7 @@ import {
 import { cn } from "@raight/utils";
 import { useSideBarItemStyles } from "./side-bar-item";
 import { useAppContext } from "./context";
-import { NoteForm } from "./note-form";
+import { NoteForm } from "./note/form";
 
 export function NewNoteButton() {
   const router = useRouter();
