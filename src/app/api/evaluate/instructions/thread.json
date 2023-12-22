@@ -24,7 +24,7 @@
   "response_format": "JSON",
   "response_components": {
     "rating": "Rate the post out of 5, focusing on tone balance, conciseness, relevance, and avoidance of offensive content.",
-    "suggestions": "Provide targeted, actionable suggestions for enhancing the post's engagement, appropriateness, and length.",
+    "suggestions": "List targeted, actionable suggestions for enhancing the post's engagement, appropriateness, and length.",
     "tone": "Describe the tone of the post (e.g., casual, professional, friendly, informative). Max 2 words",
     "style": "Identify the communication style (e.g., conversational, advisory, narrative, explanatory). Max 2 words"
   },

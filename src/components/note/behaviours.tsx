@@ -92,6 +92,7 @@ function useEvaluation(id: string) {
               id,
               content: text,
               model: note.model,
+              type: note.type,
             }),
           });
           payload = await res.json();

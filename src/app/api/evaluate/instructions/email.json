@@ -24,7 +24,7 @@
   "response_format": "JSON",
   "response_components": {
     "rating": "Rate the email out of 5, focusing on effectiveness in professional yet casual communication. Ratings should reflect both content quality and tone appropriateness.",
-    "suggestions": "Provide specific, actionable suggestions for improvement, particularly in areas of tone, clarity, and engagement.",
+    "suggestions": "List specific, actionable suggestions for improvement, particularly in areas of tone, clarity, and engagement.",
     "tone": "Identify the tone of the email (e.g., professional, casual, friendly, assertive). Max 2 words",
     "style": "Describe the communication style (e.g., informative, conversational, directive, empathetic). Max 2 words"
   },

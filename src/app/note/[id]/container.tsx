@@ -8,21 +8,12 @@ import { NoteHeaderButtons } from "@raight/components/note/header-buttons";
 import { NotePanel } from "@raight/components/note/panel";
 import { ScrollArea } from "@raight/ui/scroll-area";
 import { cn } from "@raight/utils";
-import { ClientOnly } from "@raight/components/client-only";
 
 interface Props {
   id: string;
 }
 
 export function NotePageContainer({ id }: Props) {
-  return (
-    <ClientOnly>
-      <NotePageContainerInner id={id} />
-    </ClientOnly>
-  );
-}
-
-function NotePageContainerInner({ id }: Props) {
   const router = useRouter();
   const { storage } = useAppContext();
   const note = storage.getNoteById(id);

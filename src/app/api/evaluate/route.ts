@@ -2,18 +2,27 @@ import * as z from "zod";
 import { NextRequest } from "next/server";
 import { openai } from "@raight/lib/ai";
 import { Logger } from "@raight/lib/logger";
-import SystemInstructions from "./system-instructions.json";
 import { Constants } from "@raight/lib/constants";
+import GenericTypeInstructions from "./instructions/generic.json";
+import EmailTypeInstructions from "./instructions/email.json";
+import ThreadsTypeInstructions from "./instructions/thread.json";
 
 const schema = z.object({
   id: z.string(),
   content: z.string(),
   model: z.enum(Constants.llms),
+  type: z.enum(Constants.noteTypes),
 });
 
 type Payload = z.infer<typeof schema>;
 
 const logger = Logger.create("api/evaluate");
+
+const instructionMap: Record<Payload["type"], object> = {
+  generic: GenericTypeInstructions,
+  email: EmailTypeInstructions,
+  thread: ThreadsTypeInstructions,
+};
 
 export async function POST(req: NextRequest) {
   const payload = (await req.json()) as Payload;
@@ -24,7 +33,10 @@ export async function POST(req: NextRequest) {
     completion = await openai.chat.completions.create({
       model: payload.model,
       messages: [
-        { role: "system", content: JSON.stringify(SystemInstructions) },
+        {
+          role: "system",
+          content: JSON.stringify(instructionMap[payload.type]),
+        },
         { role: "user", content: payload.content },
       ],
       stream: false,
